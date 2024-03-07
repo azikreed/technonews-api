@@ -4,12 +4,25 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node ./dist/main.js",
     "dev": "nodemon"
   },
   "author": "Ali Abdullayev",
   "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.26.2",
+    "inversify": "^6.0.2",
+    "mongoose": "^8.2.1",
+    "reflect-metadata": "^0.2.1"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.11.25",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
@@ -19,14 +32,5 @@
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "dotenv": "^16.4.5",
-    "inversify": "^6.0.2",
-    "mongoose": "^8.2.1",
-    "reflect-metadata": "^0.2.1"
   }
 }
