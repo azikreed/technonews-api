@@ -6,10 +6,13 @@ import { App } from './app';
 import 'reflect-metadata';
 import { ConfigService } from './helpers/config/config.service';
 import { IConfigService } from './interfaces/config.interface';
+import { UserController } from './controllers/user.controller';
+import { IUserController } from './interfaces/user.controller.interface';
 
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
 	bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope();
+	bind<IUserController>(TYPES.UserController).to(UserController).inSingletonScope();
 	bind<App>(TYPES.Application).to(App);
 });
 
