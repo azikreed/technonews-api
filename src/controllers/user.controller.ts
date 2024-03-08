@@ -1,10 +1,12 @@
-import { inject } from 'inversify';
+import 'reflect-metadata';
+import { inject, injectable } from 'inversify';
 import { BaseController } from './base.controller';
 import { TYPES } from '../types';
 import { ILogger } from '../interfaces/logger.interface';
-import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { IUserController } from '../interfaces/user.controller.interface';
 
+@injectable()
 export class UserController extends BaseController implements IUserController {
 	constructor(@inject(TYPES.LoggerService) private loggerService: ILogger) {
 		super(loggerService);
