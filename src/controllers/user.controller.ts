@@ -16,6 +16,18 @@ export class UserController extends BaseController implements IUserController {
 				func: this.register.bind(this),
 				middlewares: [],
 			},
+			{
+				path: '/login',
+				method: 'post',
+				func: this.login.bind(this),
+				middlewares: [],
+			},
+			{
+				path: '/refresh',
+				method: 'post',
+				func: this.refresh.bind(this),
+				middlewares: [],
+			},
 		]);
 	}
 
