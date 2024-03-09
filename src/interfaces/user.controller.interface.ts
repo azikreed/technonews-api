@@ -1,7 +1,7 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { NextFunction, Request, Response } from 'express';
 
 export interface IUserController {
-	register: (request: FastifyRequest, reply: FastifyReply) => void;
-	login: (request: FastifyRequest, reply: FastifyReply) => void;
-	refresh: (request: FastifyRequest, reply: FastifyReply) => void;
+	register: (req: Request, res: Response, next: NextFunction) => void;
+	login: (req: Request, res: Response, next: NextFunction) => void;
+	refresh: (req: Request, res: Response, next: NextFunction) => void;
 }
