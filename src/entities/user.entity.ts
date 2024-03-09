@@ -8,7 +8,7 @@ export class User {
 		private readonly _name: string,
 		private readonly _email: string,
 		private readonly _role: string,
-		private readonly _photo: string,
+		private readonly _photo: string | undefined,
 		passwordHash?: string,
 	) {
 		if (passwordHash) {
@@ -32,7 +32,7 @@ export class User {
 		return this._role;
 	}
 
-	get photo(): string {
+	get photo(): string | undefined {
 		return this._photo;
 	}
 
