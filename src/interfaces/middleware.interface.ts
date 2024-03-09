@@ -1,5 +1,5 @@
-import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
+import { NextFunction, Request, Response } from 'express';
 
 export interface IMiddleware {
-	execute: (req: FastifyRequest, res: FastifyReply, next: HookHandlerDoneFunction) => void;
+	execute: (req: Request, res: Response, next: NextFunction) => void;
 }
