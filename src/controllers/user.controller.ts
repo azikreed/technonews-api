@@ -3,37 +3,17 @@ import { inject, injectable } from 'inversify';
 import { BaseController } from './base.controller';
 import { TYPES } from '../types';
 import { ILogger } from '../interfaces/logger.interface';
-import { FastifyReply, FastifyRequest } from 'fastify';
 import { IUserController } from '../interfaces/user.controller.interface';
+import { IUserService } from '../interfaces/user.service.interface';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
-	constructor(@inject(TYPES.LoggerService) private loggerService: ILogger) {
+	constructor(
+		@inject(TYPES.LoggerService) private loggerService: ILogger,
+		@inject(TYPES.UserService) private userService: IUserService,
+	) {
 		super(loggerService);
 
-		this.bindRoutes([
-			{
-				path: '/register',
-				method: 'post',
-				func: this.register.bind(this),
-				middlewares: [],
-			},
-			{
-				path: '/login',
-				method: 'post',
-				func: this.login.bind(this),
-				middlewares: [],
-			},
-			{
-				path: '/refresh',
-				method: 'post',
-				func: this.refresh.bind(this),
-				middlewares: [],
-			},
-		]);
+		this.bindRoutes([]);
 	}
-
-	async register(request: FastifyRequest, reply: FastifyReply): Promise<void> {}
-	async login(request: FastifyRequest, reply: FastifyReply): Promise<void> {}
-	async refresh(request: FastifyRequest, reply: FastifyReply): Promise<void> {}
 }
