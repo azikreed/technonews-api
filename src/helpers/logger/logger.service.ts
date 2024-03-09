@@ -1,29 +1,25 @@
-import Fastify, { FastifyBaseLogger, FastifyInstance } from 'fastify';
+import { ILogObj, Logger } from 'tslog';
 import { ILogger } from '../../interfaces/logger.interface';
 import { injectable } from 'inversify';
 import 'reflect-metadata';
 
 @injectable()
 export class LoggerService implements ILogger {
-	public fastify: FastifyInstance;
-	public logger: FastifyBaseLogger;
+	public logger: Logger<ILogObj>;
 
 	constructor() {
-		this.fastify = Fastify({
-			logger: true,
-		});
-		this.logger = this.fastify.log;
+		this.logger = new Logger();
 	}
 
 	log(...args: unknown[]): void {
-		this.logger.info({ ...args });
+		this.logger.info(...args);
 	}
 
 	error(...args: unknown[]): void {
-		this.logger.error({ ...args });
+		this.logger.error(...args);
 	}
 
 	warn(...args: unknown[]): void {
-		this.logger.warn({ ...args });
+		this.logger.warn(...args);
 	}
 }
