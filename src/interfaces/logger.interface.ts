@@ -1,7 +1,7 @@
-import { FastifyBaseLogger } from 'fastify';
+import { Logger, ILogObj } from 'tslog';
 
 export interface ILogger {
-	logger: FastifyBaseLogger;
+	logger: Logger<ILogObj>;
 	log: (...args: unknown[]) => void;
 	error: (...args: unknown[]) => void;
 	warn: (...args: unknown[]) => void;
