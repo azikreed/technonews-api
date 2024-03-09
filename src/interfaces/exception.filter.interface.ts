@@ -1,10 +1,5 @@
-import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
+import { NextFunction, Request, Response } from 'express';
 
 export interface IExceptionFilter {
-	catch: (
-		err: Error,
-		request: FastifyRequest,
-		reply: FastifyReply,
-		next: HookHandlerDoneFunction,
-	) => void;
+	catch: (err: Error, req: Request, res: Response, next: NextFunction) => void;
 }
