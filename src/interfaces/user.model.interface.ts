@@ -6,7 +6,7 @@ export interface IUserModel extends Document {
 	email: string;
 	password: string;
 	role: string;
-	photo: string;
+	photo: string | undefined;
 	createdAt: Date;
 	updatedAt: Date;
 }
