@@ -1,51 +1,42 @@
-import { FastifyReply, FastifyRequest, RouteOptions, HookHandlerDoneFunction } from 'fastify';
+import { Response, Router } from 'express';
 import { ILogger } from '../interfaces/logger.interface';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { TYPES } from '../types';
-import { FastifyReturnType, IControllerRoute } from '../interfaces/route.interface';
+import { ExpressReturnType, IControllerRoute } from '../interfaces/route.interface';
 
 @injectable()
 export abstract class BaseController {
-	private readonly _routes: RouteOptions[] = [];
-	private readonly logger: ILogger;
+	private readonly _router: Router;
 
-	constructor(@inject(TYPES.LoggerService) logger: ILogger) {
-		this.logger = logger;
+	constructor(@inject(TYPES.LoggerService) private logger: ILogger) {
+		this._router = Router();
 	}
 
-	public get routes(): RouteOptions[] {
-		return this._routes;
+	get router(): Router {
+		return this._router;
 	}
 
-	public send<T>(reply: FastifyReply, code: number, message: T): FastifyReturnType {
-		reply.type('application/json');
-		return reply.status(code).send(message);
+	public send<T>(res: Response, code: number, message: T): ExpressReturnType {
+		res.type('application/json');
+		return res.status(code).json(message);
 	}
 
-	public ok<T>(reply: FastifyReply, message: T): FastifyReturnType {
-		return this.send<T>(reply, 200, message);
+	public ok<T>(res: Response, message: T): ExpressReturnType {
+		return this.send<T>(res, 200, message);
 	}
 
-	public created(reply: FastifyReply): FastifyReturnType {
-		return reply.code(201).send();
+	public created(res: Response): ExpressReturnType {
+		return res.sendStatus(201);
 	}
 
 	protected bindRoutes(routes: IControllerRoute[]): void {
 		for (const route of routes) {
 			this.logger.log(`[${route.method}] ${route.path}`);
-
-			const handler = (request: FastifyRequest, reply: FastifyReply): void =>
-				route.func.call(this, request, reply);
-
-			const fastifyRoute: RouteOptions = {
-				method: route.method,
-				url: route.path,
-				preHandler: route.middlewares?.map((m) => m.execute.bind(m)),
-				handler,
-			};
-
-			this._routes.push(fastifyRoute);
+			const middleware = route.middlewares?.map((m) => m.execute.bind(m));
+			const handler = route.func.bind(this);
+			const pipeline = middleware ? [...middleware, handler] : [handler];
+			this.router[route.method](route.path, pipeline);
 		}
 	}
 }
