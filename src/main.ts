@@ -18,7 +18,7 @@ import { IUserRepository } from './interfaces/user.repository.interface';
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
 	bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
-	// bind<IUserController>(TYPES.UserController).to(UserController);
+	bind<IUserController>(TYPES.UserController).to(UserController);
 	bind<IUserRepository>(TYPES.UserRepository).to(UserRepository).inSingletonScope();
 	bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope();
 	bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
