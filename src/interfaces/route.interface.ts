@@ -1,11 +1,11 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { NextFunction, Request, Response, Router } from 'express';
 import { IMiddleware } from './middleware.interface';
 
 export interface IControllerRoute {
 	path: string;
-	func: (req: FastifyRequest, reply: FastifyReply) => void;
-	method: 'get' | 'post' | 'delete' | 'patch' | 'put';
+	func: (req: Request, res: Response, next: NextFunction) => void;
+	method: keyof Pick<Router, 'get' | 'post' | 'delete' | 'patch' | 'put'>;
 	middlewares?: IMiddleware[];
 }
 
-export type FastifyReturnType = FastifyReply<any>;
+export type ExpressReturnType = Response<any, Record<string, any>>;
