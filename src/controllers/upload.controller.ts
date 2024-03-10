@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify';
-import { IUploadController } from '../interfaces/upload.controller.interface';
+import { IUploadController } from '../interfaces/upload/upload.controller.interface';
 import { BaseController } from './base.controller';
 import { TYPES } from '../types';
-import { ILogger } from '../interfaces/logger.interface';
+import { ILogger } from '../interfaces/helpers/logger.interface';
 import { Request, Response, NextFunction } from 'express';
-import { IUploadService } from '../interfaces/upload.service.interface';
-import { IConfigService } from '../interfaces/config.interface';
+import { IUploadService } from '../interfaces/upload/upload.service.interface';
+import { IConfigService } from '../interfaces/helpers/config.interface';
 import multer, { memoryStorage, Multer } from 'multer';
 import { UploadMiddleware } from '../middlewares/upload.middleware';
 import { HTTPError } from '../helpers/errors/http-error.class';

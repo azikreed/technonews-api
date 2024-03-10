@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IMiddleware } from '../interfaces/middleware.interface';
+import { IMiddleware } from '../interfaces/others/middleware.interface';
 import { verify, JwtPayload } from 'jsonwebtoken';
 
 export class AuthMiddleware implements IMiddleware {

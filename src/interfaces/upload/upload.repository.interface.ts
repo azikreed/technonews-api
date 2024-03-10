@@ -1,4 +1,4 @@
-import { Upload } from '../entities/upload.entity';
+import { Upload } from '../../entities/upload.entity';
 import { IUploadModel } from './upload.model.interface';
 
 export interface IUploadRepository {

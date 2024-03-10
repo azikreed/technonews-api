@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { IMiddleware } from '../interfaces/middleware.interface';
+import { IMiddleware } from '../interfaces/others/middleware.interface';
 
 export class IsAdminMiddleware implements IMiddleware {
 	execute(req: Request, res: Response, next: NextFunction): void {

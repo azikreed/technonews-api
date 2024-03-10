@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IUploadModel } from '../interfaces/upload.model.interface';
+import { IUploadModel } from '../interfaces/upload/upload.model.interface';
 
 const uploadSchema = new Schema<IUploadModel>({
 	data: { type: String, unique: true, required: true },

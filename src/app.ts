@@ -2,16 +2,16 @@ import express, { Express } from 'express';
 import { Server } from 'http';
 import { inject, injectable } from 'inversify';
 import { TYPES } from './types';
-import { ILogger } from './interfaces/logger.interface';
+import { ILogger } from './interfaces/helpers/logger.interface';
 import { json } from 'body-parser';
-import { IExceptionFilter } from './interfaces/exception.filter.interface';
+import { IExceptionFilter } from './interfaces/helpers/exception.filter.interface';
 import 'reflect-metadata';
-import { IConfigService } from './interfaces/config.interface';
+import { IConfigService } from './interfaces/helpers/config.interface';
 import { MongoService } from './services/db.service';
 import { UserController } from './controllers/user.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import cors from 'cors';
-import { IMinioService } from './interfaces/minio.service.interface';
+import { IMinioService } from './interfaces/others/minio.service.interface';
 import { UploadController } from './controllers/upload.controller';
 @injectable()
 export class App {

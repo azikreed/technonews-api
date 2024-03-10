@@ -1,5 +1,5 @@
 import multer, { Multer, memoryStorage } from 'multer';
-import { IMiddleware } from '../interfaces/middleware.interface';
+import { IMiddleware } from '../interfaces/others/middleware.interface';
 import { NextFunction, Request, Response } from 'express';
 
 export class UploadMiddleware implements IMiddleware {

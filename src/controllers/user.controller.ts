@@ -2,13 +2,13 @@ import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 import { BaseController } from './base.controller';
 import { TYPES } from '../types';
-import { ILogger } from '../interfaces/logger.interface';
-import { IUserController } from '../interfaces/user.controller.interface';
-import { IUserService } from '../interfaces/user.service.interface';
+import { ILogger } from '../interfaces/helpers/logger.interface';
+import { IUserController } from '../interfaces/user/user.controller.interface';
+import { IUserService } from '../interfaces/user/user.service.interface';
 import { JwtPayload, sign } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { HTTPError } from '../helpers/errors/http-error.class';
-import { IConfigService } from '../interfaces/config.interface';
+import { IConfigService } from '../interfaces/helpers/config.interface';
 import { verify } from 'jsonwebtoken';
 
 @injectable()

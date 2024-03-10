@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
-import { IUploadService } from '../interfaces/upload.service.interface';
+import { IUploadService } from '../interfaces/upload/upload.service.interface';
 import { TYPES } from '../types';
-import { IUploadRepository } from '../interfaces/upload.repository.interface';
+import { IUploadRepository } from '../interfaces/upload/upload.repository.interface';
 import { Readable } from 'stream';
-import { IUploadModel } from '../interfaces/upload.model.interface';
-import { IMinioService } from '../interfaces/minio.service.interface';
+import { IUploadModel } from '../interfaces/upload/upload.model.interface';
+import { IMinioService } from '../interfaces/others/minio.service.interface';
 import { Upload } from '../entities/upload.entity';
 
 @injectable()

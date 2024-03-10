@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { Upload } from '../entities/upload.entity';
-import { IUploadModel } from '../interfaces/upload.model.interface';
-import { IUploadRepository } from '../interfaces/upload.repository.interface';
+import { IUploadModel } from '../interfaces/upload/upload.model.interface';
+import { IUploadRepository } from '../interfaces/upload/upload.repository.interface';
 import { UploadModel } from '../models/Upload';
 
 @injectable()

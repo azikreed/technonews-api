@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
-import { IUserModel } from '../interfaces/user.model.interface';
-import { IUserService } from '../interfaces/user.service.interface';
+import { IUserModel } from '../interfaces/user/user.model.interface';
+import { IUserService } from '../interfaces/user/user.service.interface';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { TYPES } from '../types';
-import { IUserRepository } from '../interfaces/user.repository.interface';
-import { IConfigService } from '../interfaces/config.interface';
+import { IUserRepository } from '../interfaces/user/user.repository.interface';
+import { IConfigService } from '../interfaces/helpers/config.interface';
 import { User } from '../entities/user.entity';
 import { UserLoginDto } from './dto/user-login.dto';
 

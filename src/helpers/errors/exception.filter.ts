@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { IExceptionFilter } from '../../interfaces/exception.filter.interface';
+import { IExceptionFilter } from '../../interfaces/helpers/exception.filter.interface';
 import { HTTPError } from './http-error.class';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../types';
-import { ILogger } from '../../interfaces/logger.interface';
+import { ILogger } from '../../interfaces/helpers/logger.interface';
 import 'reflect-metadata';
 
 @injectable()

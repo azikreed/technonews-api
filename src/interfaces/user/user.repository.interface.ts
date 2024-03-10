@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { IUserModel } from './user.model.interface';
 
 export interface IUserRepository {

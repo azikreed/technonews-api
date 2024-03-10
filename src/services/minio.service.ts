@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { Client, UploadedObjectInfo } from 'minio';
 import { TYPES } from '../types';
-import { ILogger } from '../interfaces/logger.interface';
-import { IConfigService } from '../interfaces/config.interface';
+import { ILogger } from '../interfaces/helpers/logger.interface';
+import { IConfigService } from '../interfaces/helpers/config.interface';
 import { Readable } from 'stream';
-import { IMinioService } from '../interfaces/minio.service.interface';
+import { IMinioService } from '../interfaces/others/minio.service.interface';
 
 @injectable()
 export class MinioService implements IMinioService {
