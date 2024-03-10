@@ -8,4 +8,7 @@ export const TYPES = {
 	UserService: Symbol.for('UserService'),
 	UserRepository: Symbol.for('UserRepository'),
 	MinioService: Symbol.for('MinioService'),
+	UploadController: Symbol.for('UploadController'),
+	UploadRepository: Symbol.for('UploadRepository'),
+	UploadService: Symbol.for('UploadService'),
 };
