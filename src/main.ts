@@ -16,6 +16,12 @@ import { UserRepository } from './repositories/user.repository';
 import { IUserRepository } from './interfaces/user.repository.interface';
 import { MinioService } from './services/minio.service';
 import { IMinioService } from './interfaces/minio.service.interface';
+import { UploadController } from './controllers/upload.controller';
+import { IUploadController } from './interfaces/upload.controller.interface';
+import { UploadService } from './services/upload.service';
+import { IUploadService } from './interfaces/upload.service.interface';
+import { UploadRepository } from './repositories/upload.repository';
+import { IUploadRepository } from './interfaces/upload.repository.interface';
 
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -26,6 +32,9 @@ const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
 	bind<MongoService>(TYPES.MongoService).to(MongoService).inSingletonScope();
 	bind<IMinioService>(TYPES.MinioService).to(MinioService).inSingletonScope();
+	bind<IUploadController>(TYPES.UploadController).to(UploadController);
+	bind<IUploadService>(TYPES.UploadService).to(UploadService).inSingletonScope();
+	bind<IUploadRepository>(TYPES.UploadRepository).to(UploadRepository).inSingletonScope();
 	bind<App>(TYPES.Application).to(App);
 });
 
