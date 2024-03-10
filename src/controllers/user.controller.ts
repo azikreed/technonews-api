@@ -76,7 +76,7 @@ export class UserController extends BaseController implements IUserController {
 				role: decoded.role,
 			};
 
-			const accessToken = this.signJWT(data, this.configService.get('ACCESS'), '15m');
+			const accessToken = await this.signJWT(data, this.configService.get('ACCESS'), '15m');
 			this.ok(res, { accessToken });
 		} catch (e) {
 			this.send(res, 400, 'Invalid request');
