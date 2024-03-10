@@ -12,6 +12,7 @@ import { UserController } from './controllers/user.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import cors from 'cors';
 import { IMinioService } from './interfaces/minio.service.interface';
+import { UploadController } from './controllers/upload.controller';
 @injectable()
 export class App {
 	app: Express;
@@ -25,6 +26,7 @@ export class App {
 		@inject(TYPES.MongoService) private mongoService: MongoService,
 		@inject(TYPES.UserController) private userController: UserController,
 		@inject(TYPES.MinioService) private minioService: IMinioService,
+		@inject(TYPES.UploadController) private uploadController: UploadController,
 	) {
 		this.app = express();
 		this.port = Number(this.configService.get('PORT'));
@@ -39,6 +41,7 @@ export class App {
 
 	useRoutes(): void {
 		this.app.use('/user', this.userController.router);
+		this.app.use('/upload', this.uploadController.router);
 	}
 
 	useExceptionFilters(): void {}
