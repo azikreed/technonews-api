@@ -14,6 +14,8 @@ import { UserService } from './services/user.service';
 import { IUserService } from './interfaces/user.service.interface';
 import { UserRepository } from './repositories/user.repository';
 import { IUserRepository } from './interfaces/user.repository.interface';
+import { MinioService } from './services/minio.service';
+import { IMinioService } from './interfaces/minio.service.interface';
 
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -23,6 +25,7 @@ const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope();
 	bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
 	bind<MongoService>(TYPES.MongoService).to(MongoService).inSingletonScope();
+	bind<IMinioService>(TYPES.MinioService).to(MinioService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App);
 });
 
