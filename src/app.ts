@@ -11,6 +11,7 @@ import { MongoService } from './services/db.service';
 import { UserController } from './controllers/user.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import cors from 'cors';
+import { IMinioService } from './interfaces/minio.service.interface';
 @injectable()
 export class App {
 	app: Express;
@@ -23,6 +24,7 @@ export class App {
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.MongoService) private mongoService: MongoService,
 		@inject(TYPES.UserController) private userController: UserController,
+		@inject(TYPES.MinioService) private minioService: IMinioService,
 	) {
 		this.app = express();
 		this.port = Number(this.configService.get('PORT'));
@@ -45,6 +47,7 @@ export class App {
 		this.useMiddleware();
 		this.useRoutes();
 		this.useExceptionFilters();
+		await this.minioService.connect();
 		await this.mongoService.connect();
 		this.server = this.app.listen(this.port);
 		this.logger.log(`Server has been started on http://localhost:${this.port}`);
