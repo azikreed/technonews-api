@@ -26,12 +26,15 @@ export class UploadService implements IUploadService {
 	}
 
 	async delete(bucketName: string, fileOriginName: string, id: string): Promise<boolean> {
-		const convertedName = Date.now() + '-' + fileOriginName.replace(/\s+/g, '-').toLowerCase();
-		await this.minioService.deleteFile(bucketName, convertedName);
+		await this.minioService.deleteFile(bucketName, fileOriginName);
 		return await this.uploadRepository.delete(id);
 	}
 
 	async find(id: string): Promise<IUploadModel | null> {
 		return await this.uploadRepository.find(id);
+	}
+
+	async findAll(): Promise<IUploadModel[] | null> {
+		return await this.uploadRepository.findAll();
 	}
 }
