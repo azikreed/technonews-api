@@ -6,7 +6,6 @@ import { ILogger } from '../interfaces/helpers/logger.interface';
 import { Request, Response, NextFunction } from 'express';
 import { IUploadService } from '../interfaces/upload/upload.service.interface';
 import { IConfigService } from '../interfaces/helpers/config.interface';
-import multer, { memoryStorage, Multer } from 'multer';
 import { UploadMiddleware } from '../middlewares/upload.middleware';
 import { HTTPError } from '../helpers/errors/http-error.class';
 
@@ -31,6 +30,12 @@ export class UploadController extends BaseController implements IUploadControlle
 				path: '/delete/:id',
 				func: this.deleteUpload,
 				method: 'post',
+				middlewares: [],
+			},
+			{
+				path: '/get',
+				func: this.getUploads,
+				method: 'get',
 				middlewares: [],
 			},
 		]);
@@ -59,5 +64,13 @@ export class UploadController extends BaseController implements IUploadControlle
 			return next(new HTTPError(410, 'Ошибка при удалении upload'));
 		}
 		this.ok(res, result);
+	}
+
+	async getUploads(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const uploads = await this.uploadService.findAll();
+		if (!uploads) {
+			return next(new HTTPError(422, 'Ошибка при получении uploads', 'get all uploads'));
+		}
+		this.ok(res, uploads);
 	}
 }
