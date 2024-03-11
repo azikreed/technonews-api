@@ -22,6 +22,12 @@ import { UploadService } from './services/upload.service';
 import { IUploadService } from './interfaces/upload/upload.service.interface';
 import { UploadRepository } from './repositories/upload.repository';
 import { IUploadRepository } from './interfaces/upload/upload.repository.interface';
+import { NewsService } from './services/news.service';
+import { INewsService } from './interfaces/news/news.service.interface';
+import { INewsRepository } from './interfaces/news/news.repository.interface';
+import { NewsRepository } from './repositories/news.repository';
+import { NewsController } from './controllers/news.controller';
+import { INewsController } from './interfaces/news/news.controller.interface';
 
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -35,6 +41,9 @@ const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IUploadController>(TYPES.UploadController).to(UploadController);
 	bind<IUploadService>(TYPES.UploadService).to(UploadService).inSingletonScope();
 	bind<IUploadRepository>(TYPES.UploadRepository).to(UploadRepository).inSingletonScope();
+	bind<INewsController>(TYPES.NewsController).to(NewsController);
+	bind<INewsService>(TYPES.NewsService).to(NewsService).inSingletonScope();
+	bind<INewsRepository>(TYPES.NewsRepository).to(NewsRepository).inSingletonScope();
 	bind<App>(TYPES.Application).to(App);
 });
 
