@@ -24,4 +24,8 @@ export class NewsService implements INewsService {
 	async update(id: string, data: INewsUpdate): Promise<INewsModel | null> {
 		return await this.newsRepository.update(id, data);
 	}
+
+	async findAll(): Promise<INewsModel[] | null> {
+		return await this.newsRepository.findAll();
+	}
 }
