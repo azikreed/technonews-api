@@ -19,6 +19,6 @@ export class NewsRepository implements INewsRepository {
 	}
 
 	async update(id: string, data: INewsUpdate): Promise<INewsModel | null> {
-		return await NewsModel.findByIdAndUpdate(id, data);
+		return await NewsModel.findByIdAndUpdate(id, data, { new: true });
 	}
 }
