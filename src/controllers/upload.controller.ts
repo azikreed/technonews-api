@@ -12,12 +12,14 @@ import { HTTPError } from '../helpers/errors/http-error.class';
 
 @injectable()
 export class UploadController extends BaseController implements IUploadController {
+	private bucketName: string;
 	constructor(
 		@inject(TYPES.LoggerService) private loggerService: ILogger,
 		@inject(TYPES.UploadService) private uploadService: IUploadService,
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 	) {
 		super(loggerService);
+		this.bucketName = this.configService.get('BUCKET_NAME');
 		this.bindRoutes([
 			{
 				path: '/create',
@@ -25,20 +27,37 @@ export class UploadController extends BaseController implements IUploadControlle
 				method: 'post',
 				middlewares: [new UploadMiddleware()],
 			},
+			{
+				path: '/delete/:id',
+				func: this.deleteUpload,
+				method: 'post',
+				middlewares: [],
+			},
 		]);
 	}
 
 	async createUpload(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const bucketName = this.configService.get('BUCKET_NAME');
 		const fileOriginName = req.file?.originalname;
 		const bufferName = req.file?.buffer;
 		if (!fileOriginName || !bufferName) {
 			return next(new HTTPError(400, 'Не существует fileOriginName или bufferName'));
 		}
-		const result = await this.uploadService.create(bucketName, fileOriginName, bufferName);
+		const result = await this.uploadService.create(this.bucketName, fileOriginName, bufferName);
 		if (!result) {
 			return next(new HTTPError(410, 'Ошибка при создании upload'));
 		}
 		this.ok(res, { id: result._id, data: result.data });
+	}
+
+	async deleteUpload(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const upload = await this.uploadService.find(req.params.id);
+		if (!upload?.data) {
+			return next(new HTTPError(400, 'Не существует fileOriginName'));
+		}
+		const result = await this.uploadService.delete(this.bucketName, upload?.data, req.params.id);
+		if (!result) {
+			return next(new HTTPError(410, 'Ошибка при удалении upload'));
+		}
+		this.ok(res, result);
 	}
 }
