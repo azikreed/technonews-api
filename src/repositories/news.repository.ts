@@ -18,6 +18,10 @@ export class NewsRepository implements INewsRepository {
 		return await NewsModel.findOne({ _id: id });
 	}
 
+	async findAll(): Promise<INewsModel[] | null> {
+		return await NewsModel.find();
+	}
+
 	async update(id: string, data: INewsUpdate): Promise<INewsModel | null> {
 		return await NewsModel.findByIdAndUpdate(id, data, { new: true });
 	}
