@@ -28,8 +28,14 @@ export class NewsController extends BaseController implements INewsController {
 			},
 			{
 				path: '/view/:id',
-				method: 'post',
+				method: 'get',
 				func: this.viewIncrement,
+				middlewares: [],
+			},
+			{
+				path: '/get',
+				method: 'get',
+				func: this.getAll,
 				middlewares: [],
 			},
 		]);
@@ -64,6 +70,14 @@ export class NewsController extends BaseController implements INewsController {
 		}
 		if (!result) {
 			this.send<string>(res, 422, 'Этот пользователь уже посещал эту страницу');
+		}
+		this.ok(res, result);
+	}
+
+	async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.newsService.findAll();
+		if (!result?.length) {
+			return next(new HTTPError(404, 'Новостей не существует', 'get all news'));
 		}
 		this.ok(res, result);
 	}
