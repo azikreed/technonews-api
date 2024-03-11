@@ -12,4 +12,14 @@ export class UploadRepository implements IUploadRepository {
 		const upload = new UploadModel({ data });
 		return await upload.save();
 	}
+
+	async delete(id: string): Promise<boolean> {
+		const { deletedCount } = await UploadModel.deleteOne({ _id: id });
+		return Boolean(deletedCount);
+	}
+
+	async find(id: string): Promise<IUploadModel | null> {
+		const upload = await UploadModel.findOne({ _id: id });
+		return upload;
+	}
 }
