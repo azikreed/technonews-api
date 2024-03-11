@@ -13,6 +13,8 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
 import cors from 'cors';
 import { IMinioService } from './interfaces/others/minio.service.interface';
 import { UploadController } from './controllers/upload.controller';
+import { NewsController } from './controllers/news.controller';
+import session from 'express-session';
 @injectable()
 export class App {
 	app: Express;
@@ -27,6 +29,7 @@ export class App {
 		@inject(TYPES.UserController) private userController: UserController,
 		@inject(TYPES.MinioService) private minioService: IMinioService,
 		@inject(TYPES.UploadController) private uploadController: UploadController,
+		@inject(TYPES.NewsController) private newsController: NewsController,
 	) {
 		this.app = express();
 		this.port = Number(this.configService.get('PORT'));
@@ -35,6 +38,13 @@ export class App {
 	useMiddleware(): void {
 		this.app.use(json());
 		this.app.use(cors());
+		this.app.use(
+			session({
+				secret: this.configService.get('SESSION_KEY'),
+				resave: false,
+				saveUninitialized: true,
+			}),
+		);
 		const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'));
 		this.app.use(authMiddleware.execute.bind(authMiddleware));
 	}
@@ -42,6 +52,7 @@ export class App {
 	useRoutes(): void {
 		this.app.use('/user', this.userController.router);
 		this.app.use('/upload', this.uploadController.router);
+		this.app.use('/news', this.newsController.router);
 	}
 
 	useExceptionFilters(): void {}
