@@ -11,4 +11,7 @@ export const TYPES = {
 	UploadController: Symbol.for('UploadController'),
 	UploadRepository: Symbol.for('UploadRepository'),
 	UploadService: Symbol.for('UploadService'),
+	NewsController: Symbol.for('NewsController'),
+	NewsRepository: Symbol.for('NewsRepository'),
+	NewsService: Symbol.for('NewsService'),
 };
