@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { IUploadModel } from '../interfaces/upload/upload.model.interface';
 
-const uploadSchema = new Schema<IUploadModel>({
+const uploadSchema: Schema = new Schema<IUploadModel>({
 	data: { type: String, unique: true, required: true },
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
