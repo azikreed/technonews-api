@@ -22,4 +22,9 @@ export class UploadRepository implements IUploadRepository {
 		const upload = await UploadModel.findOne({ _id: id });
 		return upload;
 	}
+
+	async findAll(): Promise<IUploadModel[] | null> {
+		const uploads = await UploadModel.find();
+		return uploads;
+	}
 }
