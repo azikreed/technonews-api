@@ -6,5 +6,7 @@ export interface IUploadService {
 		bucketName: string,
 		fileOriginName: string,
 		fileBufferData: string | Buffer | Readable,
-	) => Promise<IUploadModel>;
+	) => Promise<IUploadModel | null>;
+	find: (id: string) => Promise<IUploadModel | null>;
+	delete: (bucketName: string, fileOriginName: string, id: string) => Promise<boolean>;
 }
