@@ -18,10 +18,20 @@ export class UploadService implements IUploadService {
 		bucketName: string,
 		fileOriginName: string,
 		fileBufferData: string | Buffer | Readable,
-	): Promise<IUploadModel> {
+	): Promise<IUploadModel | null> {
 		const convertedName = Date.now() + '-' + fileOriginName.replace(/\s+/g, '-').toLowerCase();
-		await this.minioService.uploadFile(bucketName, fileOriginName, fileBufferData);
+		await this.minioService.uploadFile(bucketName, convertedName, fileBufferData);
 		const upload = new Upload(convertedName);
 		return this.uploadRepository.create(upload);
+	}
+
+	async delete(bucketName: string, fileOriginName: string, id: string): Promise<boolean> {
+		const convertedName = Date.now() + '-' + fileOriginName.replace(/\s+/g, '-').toLowerCase();
+		await this.minioService.deleteFile(bucketName, convertedName);
+		return await this.uploadRepository.delete(id);
+	}
+
+	async find(id: string): Promise<IUploadModel | null> {
+		return await this.uploadRepository.find(id);
 	}
 }
