@@ -35,4 +35,8 @@ export class UserService implements IUserService {
 	async validateUser(dto: UserLoginDto): Promise<boolean> {
 		return true;
 	}
+
+	async getUser(email: string): Promise<IUserModel | null> {
+		return await this.userRepository.find(email);
+	}
 }
