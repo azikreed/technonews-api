@@ -8,7 +8,6 @@ export class AuthMiddleware implements IMiddleware {
 	execute(req: Request, res: Response, next: NextFunction): void {
 		if (req.headers.authorization) {
 			verify(req.headers.authorization.split(' ')[1], this.secret, (err, payload) => {
-				console.log(payload);
 				if (err) {
 					next();
 				} else if (isJwtPayload(payload)) {
