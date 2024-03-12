@@ -25,4 +25,8 @@ export class NewsRepository implements INewsRepository {
 	async update(id: string, data: INewsUpdate): Promise<INewsModel | null> {
 		return await NewsModel.findByIdAndUpdate(id, data, { new: true });
 	}
+
+	async delete(id: string): Promise<boolean | null> {
+		return await NewsModel.findByIdAndDelete(id);
+	}
 }
