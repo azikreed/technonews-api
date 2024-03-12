@@ -10,6 +10,7 @@ import { Request, Response, NextFunction } from 'express';
 import { HTTPError } from '../helpers/errors/http-error.class';
 import { IConfigService } from '../interfaces/helpers/config.interface';
 import { verify } from 'jsonwebtoken';
+import { CheckRoleUser } from '../middlewares/checkRoleUser.middleware';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -25,7 +26,7 @@ export class UserController extends BaseController implements IUserController {
 				path: '/register',
 				method: 'post',
 				func: this.register,
-				middlewares: [],
+				middlewares: [new CheckRoleUser()],
 			},
 			{
 				path: '/login',
@@ -43,21 +44,25 @@ export class UserController extends BaseController implements IUserController {
 	}
 
 	async register(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const result = await this.userService.createUser(req.body);
-		if (!result) {
-			return next(new HTTPError(422, 'Такой пользователь уже существует', 'register'));
+		try {
+			const result = await this.userService.createUser(req.body);
+			if (!result) {
+				return next(new HTTPError(422, 'Такой пользователь уже существует', 'register'));
+			}
+			this.ok(res, result);
+		} catch (e) {
+			this.send(res, 422, 'Ошибка при регистрации');
 		}
-		this.ok(res, result);
 	}
 
 	async login({ body }: Request, res: Response, next: NextFunction): Promise<void> {
-		const result = await this.userService.validateUser(body);
+		const result = await this.userService.getUser(body?.email);
 		if (!result) {
 			return next(new HTTPError(401, 'ошибка авторизации', 'login'));
 		}
 		const data = {
-			id: body.id,
-			role: body.role,
+			id: result.id,
+			role: result.role,
 		};
 		const accessToken = await this.signJWT(data, this.configService.get('ACCESS'), '15m');
 
