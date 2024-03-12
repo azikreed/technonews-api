@@ -28,4 +28,8 @@ export class NewsService implements INewsService {
 	async findAll(): Promise<INewsModel[] | null> {
 		return await this.newsRepository.findAll();
 	}
+
+	async delete(id: string): Promise<boolean | null> {
+		return await this.newsRepository.delete(id);
+	}
 }
