@@ -7,4 +7,5 @@ export interface INewsService {
 	find: (id: string) => Promise<INewsModel | null>;
 	findAll: () => Promise<INewsModel[] | null>;
 	update: (id: string, data: INewsUpdate) => Promise<INewsModel | null>;
+	delete: (id: string) => Promise<boolean | null>;
 }
