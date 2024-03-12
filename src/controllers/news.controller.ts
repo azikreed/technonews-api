@@ -9,7 +9,7 @@ import { INewsService } from '../interfaces/news/news.service.interface';
 import { HTTPError } from '../helpers/errors/http-error.class';
 import { ValidateMiddleware } from '../middlewares/validate.middleware';
 import { NewsCreateDto } from '../services/dto/news-create.dto';
-import { NewsModel } from '../models/News';
+import { CheckAccessToCreate } from '../middlewares/checkAcccesNews';
 
 @injectable()
 export class NewsController extends BaseController implements INewsController {
@@ -24,7 +24,7 @@ export class NewsController extends BaseController implements INewsController {
 				path: '/create',
 				method: 'post',
 				func: this.createNews,
-				middlewares: [new ValidateMiddleware(NewsCreateDto)],
+				middlewares: [new ValidateMiddleware(NewsCreateDto), new CheckAccessToCreate()],
 			},
 			{
 				path: '/view/:id',
@@ -38,16 +38,25 @@ export class NewsController extends BaseController implements INewsController {
 				func: this.getAll,
 				middlewares: [],
 			},
+			{
+				path: '/delete/:id',
+				method: 'delete',
+				func: this.delete,
+				middlewares: [],
+			},
 		]);
 	}
 
 	async createNews(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const result = await this.newsService.create(req.body);
-		console.log('CONTROLLER ============= ', result);
-		if (!result) {
-			return next(new HTTPError(422, 'Ошибка при создании эту новость', 'create news'));
+		try {
+			const result = await this.newsService.create(req.body);
+			if (!result) {
+				return next(new HTTPError(422, 'Ошибка при создании эту новость', 'create news'));
+			}
+			this.ok(res, result);
+		} catch (e) {
+			this.send(res, 422, 'Ошибка при создании');
 		}
-		this.ok(res, result);
 	}
 
 	async viewIncrement(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -78,6 +87,14 @@ export class NewsController extends BaseController implements INewsController {
 		const result = await this.newsService.findAll();
 		if (!result?.length) {
 			return next(new HTTPError(404, 'Новостей не существует', 'get all news'));
+		}
+		this.ok(res, result);
+	}
+
+	async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.newsService.delete(req.params.id);
+		if (!result) {
+			return next(new HTTPError(422, 'Не удалось удалить эту новость', 'delete news'));
 		}
 		this.ok(res, result);
 	}
