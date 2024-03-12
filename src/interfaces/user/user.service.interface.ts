@@ -5,5 +5,5 @@ import { IUserModel } from './user.model.interface';
 export interface IUserService {
 	createUser: (dto: UserRegisterDto) => Promise<IUserModel | null>;
 	validateUser: (dto: UserLoginDto) => Promise<boolean>;
-	// getUserInfo: (email: string) => Promise<IUserModel | null>;
+	getUser: (email: string) => Promise<IUserModel | null>;
 }
