@@ -11,6 +11,8 @@ import { HTTPError } from '../helpers/errors/http-error.class';
 import { IConfigService } from '../interfaces/helpers/config.interface';
 import { verify } from 'jsonwebtoken';
 import { CheckRoleUser } from '../middlewares/checkRoleUser.middleware';
+import { IsAdminMiddleware } from '../middlewares/isAdmin.middleware';
+import { AuthGuard } from '../middlewares/auth.guard';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -27,6 +29,12 @@ export class UserController extends BaseController implements IUserController {
 				method: 'post',
 				func: this.register,
 				middlewares: [new CheckRoleUser()],
+			},
+			{
+				path: '/admin',
+				method: 'post',
+				func: this.register,
+				middlewares: [new AuthGuard(), new IsAdminMiddleware()],
 			},
 			{
 				path: '/login',
