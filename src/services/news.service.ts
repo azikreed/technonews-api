@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { INewsModel } from '../interfaces/news/news.model.interface';
 import { INewsService } from '../interfaces/news/news.service.interface';
-import { NewsCreateDto } from './dto/news-create.dto';
+import { NewsCreateDto } from './dto/news.dto';
 import { TYPES } from '../types';
 import { INewsRepository } from '../interfaces/news/news.repository.interface';
 import { plainToClass } from 'class-transformer';
