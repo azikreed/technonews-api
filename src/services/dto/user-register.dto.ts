@@ -8,6 +8,8 @@ export class UserRegisterDto {
 	@IsEmail({}, { message: 'Неверно указан email' })
 	email: string;
 	@IsString({ message: 'Не указан пароль' })
+	role?: string;
+	@IsString({ message: 'Не указан пароль' })
 	password: string;
 	@IsString({ message: 'Не указан пароль' })
 	photo: string | undefined;
