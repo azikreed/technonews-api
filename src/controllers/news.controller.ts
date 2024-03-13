@@ -8,7 +8,7 @@ import { IConfigService } from '../interfaces/helpers/config.interface';
 import { INewsService } from '../interfaces/news/news.service.interface';
 import { HTTPError } from '../helpers/errors/http-error.class';
 import { ValidateMiddleware } from '../middlewares/validate.middleware';
-import { NewsCreateDto } from '../services/dto/news-create.dto';
+import { NewsCreateDto, NewsUpdateDto } from '../services/dto/news.dto';
 import { CheckAccessToCreate } from '../middlewares/checkAcccesNews';
 
 @injectable()
@@ -25,6 +25,12 @@ export class NewsController extends BaseController implements INewsController {
 				method: 'post',
 				func: this.createNews,
 				middlewares: [new ValidateMiddleware(NewsCreateDto), new CheckAccessToCreate()],
+			},
+			{
+				path: '/update/:id',
+				method: 'patch',
+				func: this.update,
+				middlewares: [new ValidateMiddleware(NewsUpdateDto), new CheckAccessToCreate()],
 			},
 			{
 				path: '/view/:id',
@@ -93,6 +99,17 @@ export class NewsController extends BaseController implements INewsController {
 		const result = await this.newsService.findAll();
 		if (!result?.length) {
 			return next(new HTTPError(404, 'Новостей не существует', 'get all news'));
+		}
+		this.ok(res, result);
+	}
+
+	async update(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.newsService.update(req.params.id, {
+			...req.body,
+			updatedAt: new Date(),
+		});
+		if (!result) {
+			return next(new HTTPError(422, 'Не удалось обновить эту новость', 'delete news'));
 		}
 		this.ok(res, result);
 	}
