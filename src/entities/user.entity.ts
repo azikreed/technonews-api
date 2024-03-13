@@ -7,7 +7,7 @@ export class User {
 		private readonly _username: string,
 		private readonly _name: string,
 		private readonly _email: string,
-		private readonly _role: string,
+		private readonly _role: string | undefined,
 		private readonly _photo: string | undefined,
 		passwordHash?: string,
 	) {
@@ -28,7 +28,7 @@ export class User {
 		return this._email;
 	}
 
-	get role(): string {
+	get role(): string | undefined {
 		return this._role;
 	}
 
