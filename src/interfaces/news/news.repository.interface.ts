@@ -8,4 +8,5 @@ export interface INewsRepository {
 	update: (id: string, data: INewsUpdate) => Promise<INewsModel | null>;
 	findAll: () => Promise<INewsModel[] | null>;
 	delete: (id: string) => Promise<boolean | null>;
+	mostViewed: (limit: number) => Promise<INewsModel[] | null>;
 }
