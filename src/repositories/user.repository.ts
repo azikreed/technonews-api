@@ -9,14 +9,6 @@ export class UserRepository implements IUserRepository {
 	constructor() {}
 
 	async create({ username, name, email, role, password, photo }: User): Promise<IUserModel> {
-		console.log('ALL DATA', {
-			username,
-			name,
-			email,
-			role,
-			password,
-			photo,
-		});
 		const user = new UserModel({
 			username,
 			name,
