@@ -29,4 +29,12 @@ export class NewsRepository implements INewsRepository {
 	async delete(id: string): Promise<boolean | null> {
 		return await NewsModel.findByIdAndDelete(id);
 	}
+
+	async mostViewed(limit: number): Promise<INewsModel[] | null> {
+		return await NewsModel.aggregate([
+			{ $match: { views: { $gt: 0 } } },
+			{ $sort: { views: -1 } },
+			{ $limit: limit },
+		]).exec();
+	}
 }
