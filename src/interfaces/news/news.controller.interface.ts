@@ -5,4 +5,5 @@ export interface INewsController {
 	viewIncrement: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 	getAll: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 	delete: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+	mostViewed: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 }
