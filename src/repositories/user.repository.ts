@@ -8,11 +8,20 @@ import { UserModel } from '../models/User';
 export class UserRepository implements IUserRepository {
 	constructor() {}
 
-	async create({ username, name, email, password, photo }: User): Promise<IUserModel> {
+	async create({ username, name, email, role, password, photo }: User): Promise<IUserModel> {
+		console.log('ALL DATA', {
+			username,
+			name,
+			email,
+			role,
+			password,
+			photo,
+		});
 		const user = new UserModel({
 			username,
 			name,
 			email,
+			role,
 			password,
 			photo,
 		});
