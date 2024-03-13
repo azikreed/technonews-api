@@ -44,6 +44,12 @@ export class NewsController extends BaseController implements INewsController {
 				func: this.delete,
 				middlewares: [],
 			},
+			{
+				path: '/most',
+				method: 'get',
+				func: this.mostViewed,
+				middlewares: [],
+			},
 		]);
 	}
 
@@ -78,7 +84,7 @@ export class NewsController extends BaseController implements INewsController {
 			result = await this.newsService.update(newsId, update);
 		}
 		if (!result) {
-			this.send<string>(res, 422, 'Этот пользователь уже посещал эту страницу');
+			this.ok(res, news);
 		}
 		this.ok(res, result);
 	}
@@ -95,6 +101,15 @@ export class NewsController extends BaseController implements INewsController {
 		const result = await this.newsService.delete(req.params.id);
 		if (!result) {
 			return next(new HTTPError(422, 'Не удалось удалить эту новость', 'delete news'));
+		}
+		this.ok(res, result);
+	}
+
+	async mostViewed(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const limit = Number(req.query?.limit) || 5;
+		const result = await this.newsService.mostViewed(limit);
+		if (!result) {
+			return next(new HTTPError(422, 'Не удалось найти новостей', 'most viewed news'));
 		}
 		this.ok(res, result);
 	}
