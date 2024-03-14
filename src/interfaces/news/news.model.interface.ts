@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 export interface INewsDescription {
 	title: string;
@@ -12,6 +12,7 @@ export interface INewsModel extends Document {
 	tags: string[];
 	views: number;
 	uniqueViews: string[];
+	category: Schema.Types.ObjectId;
 	createdAt: Date;
 	updatedAt: Date;
 }
