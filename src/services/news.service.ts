@@ -37,4 +37,8 @@ export class NewsService implements INewsService {
 	async mostViewed(limit: number): Promise<INewsModel[] | null> {
 		return await this.newsRepository.mostViewed(limit);
 	}
+
+	async findByCategory(id: string): Promise<INewsModel[] | null> {
+		return await this.newsRepository.findByCategory(id);
+	}
 }
