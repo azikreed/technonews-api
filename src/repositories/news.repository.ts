@@ -38,4 +38,8 @@ export class NewsRepository implements INewsRepository {
 			{ $limit: limit },
 		]).exec();
 	}
+
+	async findByCategory(id: string): Promise<INewsModel[] | null> {
+		return await NewsModel.find({ category: id });
+	}
 }
