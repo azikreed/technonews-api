@@ -10,6 +10,7 @@ import { HTTPError } from '../helpers/errors/http-error.class';
 import { ValidateMiddleware } from '../middlewares/validate.middleware';
 import { NewsCreateDto, NewsUpdateDto } from '../services/dto/news.dto';
 import { CheckAccessToCreate } from '../middlewares/checkAcccesNews';
+import { IPagination } from '../interfaces/others/pagination.interface';
 
 @injectable()
 export class NewsController extends BaseController implements INewsController {
@@ -96,7 +97,14 @@ export class NewsController extends BaseController implements INewsController {
 	}
 
 	async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const result = await this.newsService.findAll();
+		let { limit, page } = req.query;
+
+		page = page || '1';
+		limit = limit || '10';
+		const size = Number(limit);
+		const skip = (Number(page) - 1) * size;
+
+		const result = await this.newsService.findAll({ skip, size });
 		if (!result?.length) {
 			return next(new HTTPError(404, 'Новостей не существует', 'get all news'));
 		}
