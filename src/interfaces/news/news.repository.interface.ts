@@ -10,4 +10,5 @@ export interface INewsRepository {
 	findAll: (pagination: IPagination) => Promise<INewsModel[] | null>;
 	delete: (id: string) => Promise<boolean | null>;
 	mostViewed: (limit: number) => Promise<INewsModel[] | null>;
+	findByCategory: (id: string) => Promise<INewsModel[] | null>;
 }
