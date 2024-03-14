@@ -7,6 +7,7 @@ export class News {
 		private readonly _photo: string[] | string,
 		private readonly _tags: string[],
 		private readonly _views: number,
+		private readonly _category: string,
 	) {}
 
 	get title(): string {
@@ -27,5 +28,9 @@ export class News {
 
 	get photo(): string | string[] {
 		return this._photo;
+	}
+
+	get category(): string | string[] {
+		return this._category;
 	}
 }
