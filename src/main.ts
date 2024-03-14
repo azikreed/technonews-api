@@ -28,6 +28,12 @@ import { INewsRepository } from './interfaces/news/news.repository.interface';
 import { NewsRepository } from './repositories/news.repository';
 import { NewsController } from './controllers/news.controller';
 import { INewsController } from './interfaces/news/news.controller.interface';
+import { CategoryRepository } from './repositories/category.repository';
+import { CategoryService } from './services/category.service';
+import { ICategoryService } from './interfaces/category/category.service.interface';
+import { ICategoryRepository } from './interfaces/category/category.repository.interface';
+import { ICategoryController } from './interfaces/category/category.controller.interface';
+import { CategoryController } from './controllers/category.controller';
 
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -44,6 +50,9 @@ const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<INewsController>(TYPES.NewsController).to(NewsController);
 	bind<INewsService>(TYPES.NewsService).to(NewsService).inSingletonScope();
 	bind<INewsRepository>(TYPES.NewsRepository).to(NewsRepository).inSingletonScope();
+	bind<ICategoryController>(TYPES.CategoryController).to(CategoryController);
+	bind<ICategoryRepository>(TYPES.CategoryRepository).to(CategoryRepository).inSingletonScope();
+	bind<ICategoryService>(TYPES.CategoryService).to(CategoryService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App);
 });
 
