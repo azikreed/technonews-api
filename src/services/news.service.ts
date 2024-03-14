@@ -7,6 +7,7 @@ import { INewsRepository } from '../interfaces/news/news.repository.interface';
 import { plainToClass } from 'class-transformer';
 import { News } from '../entities/news.entity';
 import { INewsUpdate } from '../interfaces/news/news.update.interface';
+import { IPagination } from '../interfaces/others/pagination.interface';
 
 @injectable()
 export class NewsService implements INewsService {
@@ -25,8 +26,8 @@ export class NewsService implements INewsService {
 		return await this.newsRepository.update(id, data);
 	}
 
-	async findAll(): Promise<INewsModel[] | null> {
-		return await this.newsRepository.findAll();
+	async findAll({ skip, size }: IPagination): Promise<INewsModel[] | null> {
+		return await this.newsRepository.findAll({ skip, size });
 	}
 
 	async delete(id: string): Promise<boolean | null> {
