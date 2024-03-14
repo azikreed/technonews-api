@@ -12,4 +12,8 @@ export class CategoryRepository implements ICategoryRepository {
 		const category = new CategoryModel({ name, photo });
 		return category.save();
 	}
+
+	async delete(id: string): Promise<boolean | null> {
+		return await CategoryModel.findOneAndDelete({ _id: id });
+	}
 }
