@@ -14,4 +14,7 @@ export const TYPES = {
 	NewsController: Symbol.for('NewsController'),
 	NewsRepository: Symbol.for('NewsRepository'),
 	NewsService: Symbol.for('NewsService'),
+	CategoryController: Symbol.for('CategoryController'),
+	CategoryRepository: Symbol.for('CategoryRepository'),
+	CategoryService: Symbol.for('CategoryService'),
 };
