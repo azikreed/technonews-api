@@ -10,4 +10,5 @@ export interface INewsService {
 	update: (id: string, data: INewsUpdate) => Promise<INewsModel | null>;
 	delete: (id: string) => Promise<boolean | null>;
 	mostViewed: (limit: number) => Promise<INewsModel[] | null>;
+	findByCategory: (id: string) => Promise<INewsModel[] | null>;
 }
