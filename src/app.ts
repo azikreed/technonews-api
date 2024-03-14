@@ -15,6 +15,7 @@ import { IMinioService } from './interfaces/others/minio.service.interface';
 import { UploadController } from './controllers/upload.controller';
 import { NewsController } from './controllers/news.controller';
 import session from 'express-session';
+import { CategoryController } from './controllers/category.controller';
 @injectable()
 export class App {
 	app: Express;
@@ -30,6 +31,7 @@ export class App {
 		@inject(TYPES.MinioService) private minioService: IMinioService,
 		@inject(TYPES.UploadController) private uploadController: UploadController,
 		@inject(TYPES.NewsController) private newsController: NewsController,
+		@inject(TYPES.CategoryController) private categoryController: CategoryController,
 	) {
 		this.app = express();
 		this.port = Number(this.configService.get('PORT'));
@@ -53,6 +55,7 @@ export class App {
 		this.app.use('/user', this.userController.router);
 		this.app.use('/upload', this.uploadController.router);
 		this.app.use('/news', this.newsController.router);
+		this.app.use('/category', this.categoryController.router);
 	}
 
 	useExceptionFilters(): void {}
