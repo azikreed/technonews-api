@@ -13,6 +13,7 @@ const newsSchema: Schema = new Schema<INewsModel>({
 	tags: { type: [String], required: true },
 	views: { type: Number, default: 0 },
 	uniqueViews: { type: [String], default: [] },
+	category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });
