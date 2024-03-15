@@ -16,4 +16,8 @@ export class CategoryService implements ICategoryService {
 	async delete(id: string): Promise<boolean | null> {
 		return await this.categoryRepository.delete(id);
 	}
+
+	async find(): Promise<ICategoryModel[] | null> {
+		return await this.categoryRepository.find();
+	}
 }
