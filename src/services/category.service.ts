@@ -20,4 +20,8 @@ export class CategoryService implements ICategoryService {
 	async find(): Promise<ICategoryModel[] | null> {
 		return await this.categoryRepository.find();
 	}
+
+	async findOne(id: string): Promise<ICategoryModel | null> {
+		return await this.categoryRepository.findOne(id);
+	}
 }
