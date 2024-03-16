@@ -37,6 +37,12 @@ export class CategoryController extends BaseController implements ICategoryContr
 				func: this.getAll,
 				middlewares: [],
 			},
+			{
+				path: '/get/:id',
+				method: 'get',
+				func: this.getOne,
+				middlewares: [],
+			},
 		]);
 	}
 
@@ -73,7 +79,15 @@ export class CategoryController extends BaseController implements ICategoryContr
 	async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
 		const result = await this.categoryService.find();
 		if (!result) {
-			return next(new HTTPError(422, 'Ошибка при получении категории', 'delete category'));
+			return next(new HTTPError(422, 'Ошибка при получении категории', 'get categories'));
+		}
+		this.ok(res, result);
+	}
+
+	async getOne(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.categoryService.findOne(req.params?.id);
+		if (!result) {
+			return next(new HTTPError(422, 'Ошибка при получении категории', 'get category'));
 		}
 		this.ok(res, result);
 	}
