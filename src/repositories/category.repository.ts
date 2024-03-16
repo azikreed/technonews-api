@@ -21,4 +21,8 @@ export class CategoryRepository implements ICategoryRepository {
 	async find(): Promise<ICategoryModel[] | null> {
 		return await CategoryModel.find();
 	}
+
+	async findOne(id: string): Promise<ICategoryModel | null> {
+		return await CategoryModel.findById(id);
+	}
 }
